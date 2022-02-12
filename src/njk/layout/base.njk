@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Html Gulp - {{ app_title }}</title>
+  {% block styles %}
+    <link rel="stylesheet" href="css/bundle.css">
+  {% endblock %}
+</head>
+<body>
+  {% include "include/header.njk" %}
+  <div class="main">
+    {% block body %}{% endblock %}
+  </div>
+  {% include "include/footer.njk" %}
+  {% block scripts %}
+    <script src="js/bundle.js"></script>
+  {% endblock %}
+</body>
+</html>
