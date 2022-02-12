@@ -203,13 +203,13 @@ export function watching() {
   watch([config.distHtml, config.distCss, 'dist/js/**/*.js', 'dist/img/**/*']).on('change', browserSync.reload);
 }
 
-gulp.task('build', series(
+export const build = series(
   parallel(clean),
   parallel(scss, njk, copyImg, svgSprite),
   parallel(jsBundle),
   // parallel(jsBundleWebpack),
   parallel(zip)
-));
+);
 
 export default series(
   parallel(clean),
