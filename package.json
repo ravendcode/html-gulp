@@ -2,7 +2,7 @@
   "name": "html-gulp",
   "version": "1.0.0",
   "description": "Start template for gulp",
-  "main": "index.js",
+  "private": true,
   "scripts": {
     "start": "cross-env NODE_ENV=development gulp",
     "build": "npm run clean && npm run build-dev && npm run build-prod",

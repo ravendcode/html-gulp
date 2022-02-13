@@ -31,22 +31,6 @@ import babel from 'gulp-babel';
 import gmode from 'gulp-mode';
 const mode = gmode();
 
-const config = {
-  env: process.env.NODE_ENV,
-  pages: 'src/html/*.html',
-  srcHtml: ['src/html/include/*.html', 'src/html/*.html'],
-  distHtml: 'dist/*.html',
-  srcJS: 'src/js/**/*.js',
-  distJS: 'dist/js',
-  srcImg: 'src/img/**/*.*',
-  distImg: 'dist/img',
-  srcScss: 'src/scss/**/*.scss',
-  distCss: 'dist/css/**/*.css',
-  srcSvg: 'src/svg/**/*.svg',
-  distSvg: 'dist/img',
-  srcNjk: 'src/njk/**/*',
-};
-
 export function liveServer() {
   browserSync.init({
     server: {
@@ -57,27 +41,27 @@ export function liveServer() {
 }
 
 export function copyJS() {
-  return src(config.srcJS)
+  return src('src/js/**/*.js')
     .pipe(dest('dist/js'));
 }
 
 export function copyImg() {
-  return src(config.srcImg)
+  return src('src/img/**/*.*')
     .pipe(imagemin())
-    .pipe(dest(config.distImg))
+    .pipe(dest('dist/img'))
     .pipe(webp())
-    .pipe(dest(config.distImg));
+    .pipe(dest('dist/img'));
 }
 
 export function svgSprite() {
-  return src(config.srcSvg)
+  return src('src/svg/**/*.svg')
     .pipe(svgmin())
     .pipe(sprite())
-    .pipe(dest(config.distSvg));
+    .pipe(dest('dist/img'));
 }
 
 export function jsBundle() {
-  return src(config.srcJS)
+  return src('src/js/**/*.js')
     .pipe(plumber({
       errorHandler: onError(err => {
         return {
@@ -91,7 +75,7 @@ export function jsBundle() {
     .pipe(concat('bundle.js'))
     .pipe(mode.production(terser()))
     .pipe(mode.development(sourcemaps.write('.')))
-    .pipe(dest(config.distJS));
+    .pipe(dest('dist/js'));
 }
 
 export function jsBundleWebpack() {
@@ -115,11 +99,11 @@ export function jsBundleWebpack() {
     .pipe(mode.development(sourcemaps.init()))
     .pipe(mode.production(terser()))
     .pipe(mode.development(sourcemaps.write('.')))
-    .pipe(gulp.dest(config.distJS));
+    .pipe(gulp.dest('dist/js'));
 }
 
 export function html() {
-  return src(config.pages)
+  return src('src/html/*.html')
     .pipe(plumber({
       errorHandler: onError(err => {
         return {
@@ -139,7 +123,7 @@ export function html() {
 }
 
 export function scss() {
-  return src(config.srcScss)
+  return src('src/scss/**/*.scss')
     .pipe(plumber({
       errorHandler: onError(function (err) {
         return {
@@ -193,14 +177,14 @@ export function zip() {
 }
 
 export function watching() {
-  watch(config.srcJS, parallel(jsBundle));
-  // watch(config.srcJS, parallel(jsBundleWebpack));
-  watch(config.srcImg, parallel(copyImg));
-  watch(config.srcSvg, parallel(svgSprite));
-  watch(config.srcNjk, parallel(njk));
-  // watch(config.srcHtml, parallel(html));
-  watch(config.srcScss, parallel(scss));
-  watch([config.distHtml, config.distCss, 'dist/js/**/*.js', 'dist/img/**/*']).on('change', browserSync.reload);
+  watch('src/js/**/*.js', parallel(jsBundle));
+  // watch('src/js/**/*.js', parallel(jsBundleWebpack));
+  watch('src/img/**/*.*', parallel(copyImg));
+  watch('src/svg/**/*.svg', parallel(svgSprite));
+  watch('src/njk/**/*', parallel(njk));
+  // watch(['src/html/include/*.html', 'src/html/*.html'], parallel(html));
+  watch('src/scss/**/*.scss', parallel(scss));
+  watch(['dist/*.html', 'dist/css/**/*.css', 'dist/js/**/*.js', 'dist/img/**/*']).on('change', browserSync.reload);
 }
 
 export const build = series(
