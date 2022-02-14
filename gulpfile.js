@@ -148,7 +148,7 @@ export function scss() {
 }
 
 export function njk() {
-  return src('src/njk/*.+(html|njk)')
+  return src(['src/njk/**/*.+(html|njk)', 'src/*.+(html|njk)'])
     .pipe(plumber({
       errorHandler: onError(err => {
         return {
@@ -181,7 +181,7 @@ export function watching() {
   // watch('src/js/**/*.js', parallel(jsBundleWebpack));
   watch('src/img/**/*.*', parallel(copyImg));
   watch('src/svg/**/*.svg', parallel(svgSprite));
-  watch('src/njk/**/*', parallel(njk));
+  watch(['src/njk/**/*.+(html|njk)', 'src/*.+(html|njk)'], parallel(njk));
   // watch(['src/html/include/*.html', 'src/html/*.html'], parallel(html));
   watch('src/scss/**/*.scss', parallel(scss));
   watch(['dist/*.html', 'dist/css/**/*.css', 'dist/js/**/*.js', 'dist/img/**/*']).on('change', browserSync.reload);

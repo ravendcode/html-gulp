@@ -5,9 +5,9 @@
   "private": true,
   "scripts": {
     "start": "cross-env NODE_ENV=development gulp",
-    "build": "npm run clean && npm run build-dev && npm run build-prod",
-    "build-dev": "cross-env NODE_ENV=development gulp build",
-    "build-prod": "cross-env NODE_ENV=production gulp build",
+    "build": "npm run clean && npm run dev && npm run prod",
+    "dev": "cross-env NODE_ENV=development gulp build",
+    "prod": "cross-env NODE_ENV=production gulp build",
     "clean": "rimraf build",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
