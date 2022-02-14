@@ -148,7 +148,7 @@ export function scss() {
 }
 
 export function njk() {
-  return src(['src/njk/**/*.+(html|njk)', 'src/*.+(html|njk)'])
+  return src(['src/*.+(html|njk)'])
     .pipe(plumber({
       errorHandler: onError(err => {
         return {
