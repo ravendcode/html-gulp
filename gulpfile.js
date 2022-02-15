@@ -118,7 +118,12 @@ export function html() {
       basepath: '@file'
     }))
     .pipe(webphtml())
-    .pipe(beautify.html({ indent_size: 2, extra_liners: [], preserve_newlines: false }))
+    .pipe(beautify.html({
+      indent_size: 2,
+      extra_liners: [],
+      preserve_newlines: false,
+      end_with_newline: true
+    }))
     .pipe(dest('dist'));
 }
 
@@ -160,7 +165,12 @@ export function njk() {
     }))
     .pipe(njkRender({ path: ['src/njk'] }))
     .pipe(webphtml())
-    .pipe(beautify.html({ indent_size: 2, extra_liners: [], preserve_newlines: false }))
+    .pipe(beautify.html({
+      indent_size: 2,
+      extra_liners: [],
+      preserve_newlines: false,
+      end_with_newline: true
+    }))
     .pipe(mode.production(htmlmin({ collapseWhitespace: true })))
     .pipe(dest('dist'));
 }
