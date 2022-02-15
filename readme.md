@@ -13,7 +13,9 @@
 
 * Install packages: `npm i`
 * Run for development: `npm start`
-* Run for production: `npm run build`
+* Build for development: `npm run dev`
+* Build for production: `npm run prod`
+* Build for development and production in zip archive (look in `build`): `npm run build`
 
 ### SVG Sprite
 
