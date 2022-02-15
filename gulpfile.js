@@ -79,7 +79,7 @@ export function jsBundle() {
 }
 
 export function jsBundleWebpack() {
-  return gulp.src('./src/js/index.js')
+  return gulp.src('src/js/index.js')
     .pipe(plumber({
       errorHandler: onError(err => {
         return {
