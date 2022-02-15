@@ -19,11 +19,11 @@ import rename from 'gulp-rename';
 import concat from 'gulp-concat';
 import terser from 'gulp-terser';
 import gzip from 'gulp-zip';
+import gformatHtml from 'gulp-format-html';
 import htmlmin from 'gulp-htmlmin';
 import bulkSass from 'gulp-sass-bulk-import';
 import svgmin from 'gulp-svgmin';
 import sprite from 'gulp-svg-sprite';
-import beautify from 'gulp-beautify';
 import njkRender from 'gulp-nunjucks-render';
 import del from 'del';
 import webpackStream from 'webpack-stream';
@@ -118,7 +118,7 @@ export function html() {
       basepath: '@file'
     }))
     .pipe(webphtml())
-    .pipe(beautify.html({
+    .pipe(gformatHtml({
       indent_size: 2,
       extra_liners: [],
       preserve_newlines: false,
@@ -165,7 +165,7 @@ export function njk() {
     }))
     .pipe(njkRender({ path: ['src/njk'] }))
     .pipe(webphtml())
-    .pipe(beautify.html({
+    .pipe(gformatHtml({
       indent_size: 2,
       extra_liners: [],
       preserve_newlines: false,
