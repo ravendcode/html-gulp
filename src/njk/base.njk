@@ -10,11 +10,11 @@
   {% endblock %}
 </head>
 <body>
-  {% include "_include/header.njk" %}
+  {% include "blocks/_header.njk" %}
   <div class="main">
     {% block body %}{% endblock %}
   </div>
-  {% include "_include/footer.njk" %}
+  {% include "blocks/_footer.njk" %}
   {% block scripts %}
     <script src="js/bundle.js"></script>
   {% endblock %}
