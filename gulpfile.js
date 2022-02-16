@@ -124,6 +124,7 @@ export function html() {
       preserve_newlines: false,
       end_with_newline: true
     }))
+    .pipe(mode.production(htmlmin({ collapseWhitespace: true })))
     .pipe(dest('dist'));
 }
 
