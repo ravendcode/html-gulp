@@ -11,11 +11,11 @@
 
 ## Usage
 
-* Install packages: `npm i`
-* Run for development: `npm start`
-* Build for development: `npm run dev`
-* Build for production: `npm run prod`
-* Build for development and production in zip archive (look in `build`): `npm run build`
+* Install packages: `pnpm i`
+* Run for development: `pnpm start`
+* Build for development: `pnpm dev`
+* Build for production: `pnpm prod`
+* Build for development and production in zip archive (look in `build`): `pnpm build`
 
 ### SVG Sprite
 
