@@ -18,8 +18,16 @@
   "browserslist": [
     "last 2 versions"
   ],
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/ravendcode/html-gulp.git"
+  },
+  "bugs": {
+    "url": "https://github.com/ravendcode/html-gulp/issues"
+  },
+  "homepage": "https://github.com/ravendcode/html-gulp#readme",
   "devDependencies": {
-    "@babel/core": "^7.17.2",
+    "@babel/core": "^7.17.4",
     "@babel/preset-env": "^7.16.11",
     "browser-sync": "^2.27.7",
     "cross-env": "^7.0.3",
@@ -50,6 +58,7 @@
     "gulp-zip": "^5.1.0",
     "rimraf": "^3.0.2",
     "sass": "^1.49.7",
+    "webpack": "^5.69.0",
     "webpack-stream": "^7.0.0"
   }
 }
