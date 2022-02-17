@@ -31,6 +31,13 @@ import babel from 'gulp-babel';
 import gmode from 'gulp-mode';
 const mode = gmode();
 
+const config = {
+  // html or njk
+  template: 'html',
+  // concat or webpack
+  jsBundler: 'concat'
+};
+
 export function liveServer() {
   browserSync.init({
     server: {
@@ -97,10 +104,31 @@ export function jsBundleWebpack() {
     .pipe(webpackStream({
       mode: mode.development() ? 'development' : 'production',
       output: {
-        filename: 'bundle.js'
+        // filename: 'bundle.js',
+        // filename: '[name].js',
+        filename: (pathData) => {
+          if (pathData.chunk.name === 'main') {
+            return 'bundle.js';
+          } else {
+            return 'vendor.js';
+          }
+        },
+        // chunkFilename: 'vendor.js',
+      },
+      optimization: {
+        splitChunks: {
+          chunks: 'all',
+          cacheGroups: {
+            vendor: {
+              test: /node_modules/,
+              name: 'vendor',
+              chunks: 'all'
+            }
+          }
+        }
       }
     }))
-    .pipe(babel({ presets: ['@babel/env'] }))
+    .pipe(babel({ presets: ['@babel/preset-env'] }))
     .pipe(mode.development(sourcemaps.init()))
     .pipe(mode.production(terser()))
     .pipe(mode.development(sourcemaps.write('.')))
@@ -194,14 +222,36 @@ export function zip() {
     .pipe(gulp.dest('build'));
 }
 
+function templateChoice() {
+  if (config.template === 'html') {
+    return html();
+  } else if (config.template === 'njk') {
+    return njk();
+  }
+}
+
+function jsBundlerChoice() {
+  if (config.jsBundler === 'concat') {
+    return jsBundle();
+  } else if (config.jsBundler === 'webpack') {
+    return jsBundleWebpack();
+  }
+}
+
 export function watching() {
-  watch(['src/js/**/*.js', 'src/blocks/**/*.js'], parallel(jsBundle));
-  // watch(['src/js/**/*.js', 'src/blocks/**/*.js'], parallel(jsBundleWebpack));
+  if (config.jsBundler === 'concat') {
+    watch(['src/js/**/*.js', 'src/blocks/**/*.js'], parallel(jsBundle));
+  } else if (config.jsBundler === 'webpack') {
+    watch(['src/js/**/*.js', 'src/blocks/**/*.js'], parallel(jsBundleWebpack));
+  }
   watch('src/font/**/*', parallel(copyFont));
   watch('src/img/**/*.*', parallel(copyImg));
   watch('src/svg/**/*.svg', parallel(svgSprite));
-  // watch(['src/njk/**/*.njk', 'src/blocks/**/*.njk', 'src/*.njk'], parallel(njk));
-  watch(['src/html/**/*.html', 'src/blocks/**/*.html', 'src/*.html'], parallel(html));
+  if (config.template === 'html') {
+    watch(['src/html/**/*.html', 'src/blocks/**/*.html', 'src/*.html'], parallel(html));
+  } else if (config.template === 'njk') {
+    watch(['src/njk/**/*.njk', 'src/blocks/**/*.njk', 'src/*.njk'], parallel(njk));
+  }
   watch(['src/scss/**/*.scss', 'src/blocks/**/*.scss'], parallel(scss));
   watch(['dist/*.html', 'dist/css/**/*.css', 'dist/js/**/*.js', 'dist/img/**/*']).on('change', browserSync.reload);
 }
@@ -209,9 +259,11 @@ export function watching() {
 export const build = series(
   parallel(clean),
   parallel(scss, copyFont, copyImg, svgSprite),
+  parallel(templateChoice),
   // parallel(njk),
-  parallel(html),
-  parallel(jsBundle),
+  // parallel(html),
+  parallel(jsBundlerChoice),
+  // parallel(jsBundle),
   // parallel(jsBundleWebpack),
   parallel(zip)
 );
@@ -219,9 +271,11 @@ export const build = series(
 export default series(
   parallel(clean),
   parallel(scss, copyFont, copyImg, svgSprite),
+  parallel(templateChoice),
   // parallel(njk),
-  parallel(html),
-  parallel(jsBundle),
+  // parallel(html),
+  parallel(jsBundlerChoice),
+  // parallel(jsBundle),
   // parallel(jsBundleWebpack),
   parallel(liveServer, watching)
 );

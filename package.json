@@ -22,6 +22,7 @@
     "@babel/core": "^7.17.4",
     "@babel/preset-env": "^7.16.11",
     "browser-sync": "^2.27.7",
+    "commander": "^9.0.0",
     "cross-env": "^7.0.3",
     "del": "^6.0.0",
     "gulp": "^4.0.2",
@@ -52,5 +53,8 @@
     "sass": "^1.49.7",
     "webpack": "^5.69.0",
     "webpack-stream": "^7.0.0"
+  },
+  "dependencies": {
+    "jquery": "^3.6.0"
   }
 }

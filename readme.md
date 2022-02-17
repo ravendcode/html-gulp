@@ -2,10 +2,11 @@
 
 ## Features
 
+* BEM structure
 * Gulp
 * SASS
-* Nunjucks
-* Webpack (optional)
+* HTML or Nunjucks
+* JavaScript Concat or JavaScript Webpack
 * SVG Sprite
 * Live Server
 
@@ -16,6 +17,12 @@
 * Build for development: `pnpm dev`
 * Build for production: `pnpm prod`
 * Build for development and production in zip archive (look in `build`): `pnpm build`
+
+### Config
+
+* If need nunjucks: in `gulpfile.js` set `config.template = 'njk'`
+* If need webpack: in `gulpfile.js` set `config.jsBundler = 'webpack'`
+* 🎁 Read `snippet.md`
 
 ### SVG Sprite
 

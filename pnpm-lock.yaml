@@ -4,6 +4,7 @@ specifiers:
   '@babel/core': ^7.17.4
   '@babel/preset-env': ^7.16.11
   browser-sync: ^2.27.7
+  commander: ^9.0.0
   cross-env: ^7.0.3
   del: ^6.0.0
   gulp: ^4.0.2
@@ -30,15 +31,20 @@ specifiers:
   gulp-webp: ^4.0.1
   gulp-webp-html-nosvg: ^1.0.5
   gulp-zip: ^5.1.0
+  jquery: ^3.6.0
   rimraf: ^3.0.2
   sass: ^1.49.7
   webpack: ^5.69.0
   webpack-stream: ^7.0.0
 
+dependencies:
+  jquery: 3.6.0
+
 devDependencies:
   '@babel/core': 7.17.4
   '@babel/preset-env': 7.16.11_@babel+core@7.17.4
   browser-sync: 2.27.7
+  commander: 9.0.0
   cross-env: 7.0.3
   del: 6.0.0
   gulp: 4.0.2
@@ -2514,6 +2520,11 @@ packages:
   /commander/7.2.0:
     resolution: {integrity: sha512-QrWXB+ZQSVPmIWIhtEO9H+gwHaMGYiF5ChvoJ+K9ZGHG/sVsa6yiesAD1GC/x46sET00Xlwo1u49RVVVzvcSkw==}
     engines: {node: '>= 10'}
+    dev: true
+
+  /commander/9.0.0:
+    resolution: {integrity: sha512-JJfP2saEKbQqvW+FI93OYUB4ByV5cizMpFMiiJI8xDbBvQvSkIk0VvQdn1CZ8mqAO8Loq2h0gYTYtDFUZUeERw==}
+    engines: {node: ^12.20.0 || >=14}
     dev: true
 
   /component-bind/1.0.0:
@@ -5416,6 +5427,10 @@ packages:
       merge-stream: 2.0.0
       supports-color: 8.1.1
     dev: true
+
+  /jquery/3.6.0:
+    resolution: {integrity: sha512-JVzAR/AjBvVt2BmYhxRCSYysDsPcssdmTFnzyLEts9qNwmjmu4JTAMYubEfwVOSwpQ1I1sKKFcxhZCI2buerfw==}
+    dev: false
 
   /js-beautify/1.14.0:
     resolution: {integrity: sha512-yuck9KirNSCAwyNJbqW+BxJqJ0NLJ4PwBUzQQACl5O3qHMBXVkXb/rD0ilh/Lat/tn88zSZ+CAHOlk0DsY7GuQ==}
