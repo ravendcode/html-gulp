@@ -23,7 +23,7 @@
 
 * If need nunjucks: in `gulpfile.js` set `config.template = 'njk'`
 * If need webpack: in `gulpfile.js` set `config.jsBundler = 'webpack'`
-* 🎁 Read `snippet.md`
+* 🎁 Read [snippet.md](snippet.md)
 
 ### SVG Sprite
 
