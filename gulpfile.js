@@ -33,7 +33,7 @@ const mode = gmode();
 
 const config = {
   // html or njk
-  template: 'njk',
+  template: 'html',
   // concat or webpack
   jsBundler: 'concat'
 };
