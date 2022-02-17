@@ -5,7 +5,7 @@
 * BEM Structure
 * Gulp
 * SASS
-* HTML or Nunjucks
+* HTML or Nunjucks or Pug
 * JavaScript Concat or JavaScript Webpack
 * Images
 * SVG Sprite
@@ -18,12 +18,26 @@
 * Build for development: `pnpm dev`
 * Build for production: `pnpm prod`
 * Build for development and production in zip archive (look in `build`): `pnpm build`
-
-### Config
-
-* If need nunjucks: in `gulpfile.js` set `config.template = 'njk'`
-* If need webpack: in `gulpfile.js` set `config.jsBundler = 'webpack'`
 * 🎁 Read [snippet.md](snippet.md)
+
+### Config gulpfile.js
+
+``` bash
+# If need include html
+config.template = 'html'
+
+# If need include nunjucks
+config.template = 'njk'
+
+# If need include pug
+config.template = 'pug'
+
+# If need concat
+config.jsBundler = 'concat'
+
+# If need webpack
+config.jsBundler = 'webpack'
+```
 
 ### SVG Sprite
 

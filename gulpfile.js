@@ -28,11 +28,12 @@ import njkRender from 'gulp-nunjucks-render';
 import del from 'del';
 import webpackStream from 'webpack-stream';
 import babel from 'gulp-babel';
+import pugRender from 'gulp-pug';
 import gmode from 'gulp-mode';
 const mode = gmode();
 
 const config = {
-  // html or njk
+  // html or njk or pug
   template: 'html',
   // concat or webpack
   jsBundler: 'concat'
@@ -163,6 +164,52 @@ export function html() {
     .pipe(dest('dist'));
 }
 
+export function njk() {
+  return src('src/*.njk')
+    .pipe(plumber({
+      errorHandler: onError(err => {
+        return {
+          title: 'Nunjucks',
+          sound: false,
+          message: err.message
+        }
+      })
+    }))
+    .pipe(njkRender({ path: ['src'] }))
+    .pipe(webphtml())
+    .pipe(gformatHtml({
+      indent_size: 2,
+      extra_liners: [],
+      preserve_newlines: false,
+      end_with_newline: true
+    }))
+    .pipe(mode.production(htmlmin({ collapseWhitespace: true })))
+    .pipe(dest('dist'));
+}
+
+export function pug() {
+  return src('src/*.pug')
+    .pipe(plumber({
+      errorHandler: onError(err => {
+        return {
+          title: 'Pug',
+          sound: false,
+          message: err.message
+        }
+      })
+    }))
+    .pipe(pugRender())
+    .pipe(webphtml())
+    .pipe(gformatHtml({
+      indent_size: 2,
+      extra_liners: [],
+      preserve_newlines: false,
+      end_with_newline: true
+    }))
+    .pipe(mode.production(htmlmin({ collapseWhitespace: true })))
+    .pipe(dest('dist'));
+}
+
 export function scss() {
   return src('src/scss/index.scss')
     .pipe(plumber({
@@ -188,29 +235,6 @@ export function scss() {
     .pipe(browserSync.stream());
 }
 
-export function njk() {
-  return src('src/*.njk')
-    .pipe(plumber({
-      errorHandler: onError(err => {
-        return {
-          title: 'Nunjucks',
-          sound: false,
-          message: err.message
-        }
-      })
-    }))
-    .pipe(njkRender({ path: ['src'] }))
-    .pipe(webphtml())
-    .pipe(gformatHtml({
-      indent_size: 2,
-      extra_liners: [],
-      preserve_newlines: false,
-      end_with_newline: true
-    }))
-    .pipe(mode.production(htmlmin({ collapseWhitespace: true })))
-    .pipe(dest('dist'));
-}
-
 export function clean() {
   return del(['dist']);
 }
@@ -227,6 +251,8 @@ function templateChoice() {
     return html();
   } else if (config.template === 'njk') {
     return njk();
+  } else if (config.template === 'pug') {
+    return pug();
   }
 }
 
@@ -251,6 +277,8 @@ export function watching() {
     watch(['src/html/**/*.html', 'src/blocks/**/*.html', 'src/*.html'], parallel(html));
   } else if (config.template === 'njk') {
     watch(['src/njk/**/*.njk', 'src/blocks/**/*.njk', 'src/*.njk'], parallel(njk));
+  } else if (config.template === 'pug') {
+    watch(['src/pug/**/*.pug', 'src/blocks/**/*.pug', 'src/*.pug'], parallel(pug));
   }
   watch(['src/scss/**/*.scss', 'src/blocks/**/*.scss'], parallel(scss));
   watch(['dist/*.html', 'dist/css/**/*.css', 'dist/js/**/*.js', 'dist/img/**/*']).on('change', browserSync.reload);

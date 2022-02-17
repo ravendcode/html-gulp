@@ -14,4 +14,7 @@ src\blocks\blog\blog.{html,scss,js}
 
 src\blocks\blog\blog.{njk,scss}
 src\blocks\blog\blog.{njk,scss,js}
+
+src\blocks\blog\blog.{pug,scss}
+src\blocks\blog\blog.{pug,scss,js}
 ```
