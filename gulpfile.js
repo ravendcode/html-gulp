@@ -288,11 +288,7 @@ export const build = series(
   parallel(clean),
   parallel(scss, copyFont, copyImg, svgSprite),
   parallel(templateChoice),
-  // parallel(njk),
-  // parallel(html),
   parallel(jsBundlerChoice),
-  // parallel(jsBundle),
-  // parallel(jsBundleWebpack),
   parallel(zip)
 );
 
@@ -300,10 +296,6 @@ export default series(
   parallel(clean),
   parallel(scss, copyFont, copyImg, svgSprite),
   parallel(templateChoice),
-  // parallel(njk),
-  // parallel(html),
   parallel(jsBundlerChoice),
-  // parallel(jsBundle),
-  // parallel(jsBundleWebpack),
   parallel(liveServer, watching)
 );
