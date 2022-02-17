@@ -6,7 +6,7 @@
 * Select: `File Utils: New File Relative to Project Root`
 * Select: `/ - workspace root` and copy paste template
 
-## Template example
+## Template examples
 
 ```
 src\blocks\blog\blog.{html,scss}
