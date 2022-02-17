@@ -33,7 +33,7 @@ const mode = gmode();
 
 const config = {
   // html or njk
-  template: 'html',
+  template: 'njk',
   // concat or webpack
   jsBundler: 'concat'
 };
@@ -189,7 +189,7 @@ export function scss() {
 }
 
 export function njk() {
-  return src(['src/*.njk'])
+  return src('src/*.njk')
     .pipe(plumber({
       errorHandler: onError(err => {
         return {
@@ -199,7 +199,7 @@ export function njk() {
         }
       })
     }))
-    .pipe(njkRender({ path: ['src/njk', 'src/blocks'] }))
+    .pipe(njkRender({ path: ['src'] }))
     .pipe(webphtml())
     .pipe(gformatHtml({
       indent_size: 2,

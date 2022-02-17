@@ -7,6 +7,7 @@
 * SASS
 * HTML or Nunjucks
 * JavaScript Concat or JavaScript Webpack
+* Images
 * SVG Sprite
 * Live Server
 
