@@ -27,8 +27,9 @@
 
 ### SVG Sprite
 
-`<img width="63" height="63" src="img/sprite.svg#car_engine_24x">`
-or
-`<svg width="63" height="63">
+```
+<img width="63" height="63" src="img/sprite.svg#car_engine_24x">
+<svg width="63" height="63">
   <use xlink:href="img/sprite.svg#car_engine_24x"></use>
-</svg>`
+</svg>
+```
