@@ -1,0 +1,43 @@
+$primary-color: red;
+
+html,
+body {
+  height: 100%;
+}
+
+body {
+  font-family: 'Roboto', Arial, 'Helvetica Neue', Helvetica, sans-serif;
+  // background-color: #171718;
+  // color: #FFFFFF;
+}
+
+[class*='__container'] {
+  box-sizing: content-box;
+  max-width: 1156px;
+  margin: 0 auto;
+  padding: 0 15px;
+}
+
+.hidden {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  margin: -1px;
+  border: 0;
+  padding: 0;
+  white-space: nowrap;
+  clip-path: inset(100%);
+  clip: rect(0 0 0 0);
+  overflow: hidden;
+}
+
+.wrapper {
+  display: flex;
+  flex-direction: column;
+  min-height: 100%;
+  /* overflow: hidden; */
+}
+
+.main {
+  flex-grow: 1;
+}

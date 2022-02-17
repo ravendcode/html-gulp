@@ -1,11 +1,14 @@
 {% extends "base.njk" %}
-{% set app_title = "Home" %}
+{% set app_title = "About" %}
 {% block body %}
   <div id="content">
     <div class="container">
       {% include "header/header.njk" %}
-      <h1>Index</h1>
+      <h1>{{ app_title }}</h1>
       <img width="63" height="63" src="img/sprite.svg#car_engine_24x">
+      {% include "social/social.njk" %}
+      {% include "social/social.njk" %}
+      {% include "social/social.njk" %}
       {% include "social/social.njk" %}
     </div>
   </div>

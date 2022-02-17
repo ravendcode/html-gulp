@@ -45,6 +45,11 @@ export function copyJS() {
     .pipe(dest('dist/js'));
 }
 
+export function copyFont() {
+  return src('src/font/**/*')
+    .pipe(dest('dist/font'));
+}
+
 export function copyImg() {
   return src('src/img/**/*.*')
     .pipe(imagemin())
@@ -61,7 +66,7 @@ export function svgSprite() {
 }
 
 export function jsBundle() {
-  return src('src/js/**/*.js')
+  return src(['src/js/**/*.js', 'src/blocks/**/*.js'])
     .pipe(plumber({
       errorHandler: onError(err => {
         return {
@@ -103,7 +108,7 @@ export function jsBundleWebpack() {
 }
 
 export function html() {
-  return src('src/html/*.html')
+  return src('src/*.html')
     .pipe(plumber({
       errorHandler: onError(err => {
         return {
@@ -114,7 +119,9 @@ export function html() {
       })
     }))
     .pipe(fileinclude({
-      prefix: '@@',
+      // prefix: '@@',
+      prefix: '{',
+      suffix: '}',
       basepath: '@file'
     }))
     .pipe(webphtml())
@@ -129,7 +136,7 @@ export function html() {
 }
 
 export function scss() {
-  return src('src/scss/**/*.scss')
+  return src('src/scss/index.scss')
     .pipe(plumber({
       errorHandler: onError(function (err) {
         return {
@@ -154,7 +161,7 @@ export function scss() {
 }
 
 export function njk() {
-  return src(['src/*.+(html|njk)'])
+  return src(['src/*.njk'])
     .pipe(plumber({
       errorHandler: onError(err => {
         return {
@@ -164,7 +171,7 @@ export function njk() {
         }
       })
     }))
-    .pipe(njkRender({ path: ['src/njk'] }))
+    .pipe(njkRender({ path: ['src/njk', 'src/blocks'] }))
     .pipe(webphtml())
     .pipe(gformatHtml({
       indent_size: 2,
@@ -188,19 +195,22 @@ export function zip() {
 }
 
 export function watching() {
-  watch('src/js/**/*.js', parallel(jsBundle));
-  // watch('src/js/**/*.js', parallel(jsBundleWebpack));
+  watch(['src/js/**/*.js', 'src/blocks/**/*.js'], parallel(jsBundle));
+  // watch(['src/js/**/*.js', 'src/blocks/**/*.js'], parallel(jsBundleWebpack));
+  watch('src/font/**/*', parallel(copyFont));
   watch('src/img/**/*.*', parallel(copyImg));
   watch('src/svg/**/*.svg', parallel(svgSprite));
-  watch(['src/njk/**/*.+(html|njk)', 'src/*.+(html|njk)'], parallel(njk));
-  // watch(['src/html/include/*.html', 'src/html/*.html'], parallel(html));
-  watch('src/scss/**/*.scss', parallel(scss));
+  // watch(['src/njk/**/*.njk', 'src/blocks/**/*.njk', 'src/*.njk'], parallel(njk));
+  watch(['src/html/**/*.html', 'src/blocks/**/*.html', 'src/*.html'], parallel(html));
+  watch(['src/scss/**/*.scss', 'src/blocks/**/*.scss'], parallel(scss));
   watch(['dist/*.html', 'dist/css/**/*.css', 'dist/js/**/*.js', 'dist/img/**/*']).on('change', browserSync.reload);
 }
 
 export const build = series(
   parallel(clean),
-  parallel(scss, njk, copyImg, svgSprite),
+  parallel(scss, copyFont, copyImg, svgSprite),
+  // parallel(njk),
+  parallel(html),
   parallel(jsBundle),
   // parallel(jsBundleWebpack),
   parallel(zip)
@@ -208,7 +218,9 @@ export const build = series(
 
 export default series(
   parallel(clean),
-  parallel(scss, njk, copyImg, svgSprite),
+  parallel(scss, copyFont, copyImg, svgSprite),
+  // parallel(njk),
+  parallel(html),
   parallel(jsBundle),
   // parallel(jsBundleWebpack),
   parallel(liveServer, watching)

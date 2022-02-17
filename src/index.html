@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html lang="en">
+{include('html/_head.html', {title: 'Index'})}
+<body>
+  <div class="wrapper">
+    <header class="header">
+      {include('blocks/header/header.html')}
+    </header>
+    <main class="main">
+      <h1 class="header">HTML Gulp <a href="about.html">About</a></h1>
+      <img src="img/bambuk.jpg" alt="bambuk">
+      <img width="63" height="63" src="img/sprite.svg#car_engine_24x">
+      <svg width="63" height="63">
+        <use xlink:href="img/sprite.svg#car_bay_24x"></use>
+      </svg>
+    </main>
+    <footer class="footer">
+      {include('blocks/social/social.html')}
+    </footer>
+  </div>
+  {include('html/_js.html')}
+</body>
+</html>
