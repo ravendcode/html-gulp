@@ -2,7 +2,7 @@
 
 ## Features
 
-* BEM structure
+* BEM Structure
 * Gulp
 * SASS
 * HTML or Nunjucks
