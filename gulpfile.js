@@ -35,7 +35,7 @@ const mode = gMode();
 
 const config = {
   // html or njk or pug
-  template: 'html',
+  template: 'pug',
   // concat or webpack
   jsBundler: 'concat',
 };
